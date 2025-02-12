@@ -11,7 +11,7 @@ class AssignProviderModel extends Model
     protected $fillable = [ 
     'provider_id', 
     'provider_name',
-    'provider_rate',
+    'provider_rate',knkihni
     'location',
     'service_type',
     'wkly_hours',
