@@ -41,12 +41,11 @@ Route::post('/AssignProvider', [ProviderController::class,'SaveAssignProviderDet
 Route::get('/FetchAssignedProviders/{id}',[ProviderController::class,'FetchAssignedProviders']);
 Route::get('/FetchStudentOfAssignedProviders/{id}',[ProviderController::class,'FetchStudentOfAssignedProviders']);
 
+
 Route::get('/fetch_start_end_date_of_student/{id}',[ProviderController::class,'fetch_start_end_date_of_student']);
-
-
 Route::get('/ProviderDataFetchAsID/{id}', [ProviderController::class, 'fetchProviderById']);
-// Route::delete('/DeleteAssignedProviders/{id}',[ProviderController::class,'DeleteAssignedProviders']);
-// Route::post('/AddSchool', [SchoolController::class,'addschool']);
+
+
 Route::post('/AddSchool', [SchoolController::class, 'addSchool']);
 Route::get('/fetchSchoolData',[SchoolController::class,'SchoolData']);
 Route::delete('/DeleteSchool/{id}', [SchoolController::class, 'deleteSchooldata']);
@@ -67,5 +66,4 @@ Route::middleware('auth:sanctum')->get('/roll_id', [AuthController::class, 'getR
 Route::post('/ConfirmSession', [CalendarController::class, 'CalendarConfirmSession']);
 // Route::post('/ConfirmSession', [CalendarController::class, 'CalendarConfirmSession']);
 Route::get('/FetchConfirmSession',[CalendarController::class,'FetchConfirmessionDetails']);
-
-// Route::get('/StudentServicesDataFetchAsID/{id}', [StudentController::class, 'StudentServicesDataFetchAsID']);
+Route::delete('/DeleteStudentService/{id}', [StudentController::class, 'DeleteStudentService']);

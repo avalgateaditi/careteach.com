@@ -24,7 +24,7 @@ import Skeleton from "react-loading-skeleton";
     const [student, setStudent] = useState(null);
     const [parent, setParentData] = useState(null);
     const [StudentServices, setStudentServices] = useState(null);
-  
+    // const [Aditi, setAditi] = useState(null);
   const navigate = useNavigate();
 
   //==============================================================
@@ -58,11 +58,15 @@ import Skeleton from "react-loading-skeleton";
   const handleInputChange = (index, field, value) => {
     const updatedFormDataList = [...formDataList];
     updatedFormDataList[index][field] = value;
+  
     setFormDataList(updatedFormDataList);
   };
 
+// console.log("formDataList",formDataList);
+
   const handleServiceTypeChange = (index, type) => {
     const updatedFormDataList = [...formDataList];
+    // console.log("updatedFormDataList",updatedFormDataList);
     updatedFormDataList[index] = {
       ...updatedFormDataList[index],
       service_type: type,
@@ -77,12 +81,35 @@ import Skeleton from "react-loading-skeleton";
     ]);
   };
 
-const removeService = (index) => {
-  if (formDataList.length > 1) {
-  const updatedFormDataList = formDataList.filter((_, i) => i !== index);
-  setFormDataList(updatedFormDataList);
-  }
-};
+  const removeService = (id) => {
+    console.log("Attempting to delete service with ID:", id);
+  
+    // Send DELETE request to your API endpoint
+    axios.delete(`${backendUrl}/api/DeleteStudentService/${id}`)
+      .then((response) => {
+        console.log('Service deleted successfully:', response.data);
+        // setAditi(response);
+        setFormDataList((prevFormDataList) =>
+          prevFormDataList.filter((service) => service.id !== id)
+        );
+        // Toast notification for successful deletion.
+        toast.success("Service successfully deleted!", {
+          position: "top-right",
+          autoClose: 5000,
+        });
+      })
+      .catch((error) => {
+        // Handle the error based on the error type
+        if (error.response) {
+          console.error('Error deleting service (response):', error.response);
+        } else if (error.request) {
+          console.error('Error deleting service (request):', error.request);
+        } else {
+          console.error('Error deleting service (message):', error.message);
+        }
+      });
+  };
+  
   // ===================================================================
 
   const [resolutionInvoice, setResolutionInvoice] = useState(false);
@@ -1009,7 +1036,7 @@ useEffect(() => {
                 <div style={{ display: 'flex', alignItems: 'center', marginLeft: '-1rem', marginTop: '-7rem' }}>
                   <Tooltip title= "Remove Service"  arrow>
                     <IconButton
-                      onClick={() => removeService(index)}
+                      onClick={() => removeService(formData.id)}
                       style={{
                         background: 'none',
                         padding: '0',

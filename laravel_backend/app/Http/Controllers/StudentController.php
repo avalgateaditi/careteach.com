@@ -383,6 +383,24 @@ public function editstudent(Request $request, $id)
     // }
     
 // StudentServicesDataFetchAsID
+public function DeleteStudentService($id)
+
+    {
+        try {
+            // $student = Student::find($id);
+            $service = StudentServices::find($id);
+            if (!$service) {
+                return response()->json(['message' => 'service not found'], 404);
+            }
+            $service->delete();
+
+            return response()->json(['message' => 'service deleted successfully'], 200);
+        } catch (\Exception $e) {
+            Log::error('Error deleting students: ' . $e->getMessage());
+
+            return response()->json(['message' => 'Error deleting services'], 500);
+        }
+    }
 
     
 }
